@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { formatCurrency } from "@/lib/utils";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CurrencySelector } from "@/components/shared/CurrencySelector";
 
 export default function GSTCalculatorPage() {
   const [amount, setAmount] = useState(1000);
@@ -27,8 +28,9 @@ export default function GSTCalculatorPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 space-y-8">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle>GST Details</CardTitle>
+              <CurrencySelector className="w-28" />
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
@@ -42,7 +44,7 @@ export default function GSTCalculatorPage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Amount (₹)</Label>
+                <Label>Amount</Label>
                 <Input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
               </div>
 
@@ -72,23 +74,23 @@ export default function GSTCalculatorPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-xl flex justify-between">
                   <span>Base Amount</span>
-                  <span className="font-bold">{formatCurrency(result.originalAmount, "INR")}</span>
+                  <span className="font-bold">{formatCurrency(result.originalAmount)}</span>
                 </div>
                 <div className="p-4 border rounded-xl flex justify-between">
                   <span>Total GST</span>
-                  <span className="font-bold text-red-500">{formatCurrency(result.totalGst, "INR")}</span>
+                  <span className="font-bold text-red-500">{formatCurrency(result.totalGst)}</span>
                 </div>
                 <div className="p-4 border rounded-xl flex justify-between">
                   <span>CGST (Half)</span>
-                  <span className="font-bold">{formatCurrency(result.cgst, "INR")}</span>
+                  <span className="font-bold">{formatCurrency(result.cgst)}</span>
                 </div>
                 <div className="p-4 border rounded-xl flex justify-between">
                   <span>SGST (Half)</span>
-                  <span className="font-bold">{formatCurrency(result.sgst, "INR")}</span>
+                  <span className="font-bold">{formatCurrency(result.sgst)}</span>
                 </div>
                 <div className="p-4 bg-primary/10 rounded-xl flex justify-between col-span-1 md:col-span-2">
                   <span className="font-bold text-primary">Final Billed Amount</span>
-                  <span className="text-xl font-bold text-primary">{formatCurrency(result.finalAmount, "INR")}</span>
+                  <span className="text-xl font-bold text-primary">{formatCurrency(result.finalAmount)}</span>
                 </div>
               </div>
             </CardContent>

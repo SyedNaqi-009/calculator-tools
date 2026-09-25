@@ -10,10 +10,19 @@ import PageSEO from '@/components/seo/PageSEO';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function DaysBetweenCalculator() {
-  const [start, setStart] = useState('');
-  const [end, setEnd] = useState('');
+  const [start, setStart] = useState(() => new Date().toISOString().split('T')[0]);
+  const [end, setEnd] = useState(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 30);
+    return d.toISOString().split('T')[0];
+  });
   const [includeEnd, setIncludeEnd] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<any>(() => {
+    const s = new Date();
+    const e = new Date();
+    e.setDate(e.getDate() + 30);
+    return calculateDaysBetween(s, e, false);
+  });
 
   const handleCalculate = () => {
     if (start && end) {

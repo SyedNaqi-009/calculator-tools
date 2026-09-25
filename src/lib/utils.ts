@@ -13,16 +13,22 @@ export function formatNumber(value: number, maximumFractionDigits = 2): string {
   }).format(value);
 }
 
-export function formatCurrency(value: number, currency = "USD"): string {
-  if (isNaN(value) || !isFinite(value)) return "$0";
+import { detectUserCurrency } from "./currency";
+
+export function formatCurrency(value: number, currency?: string): string {
+  if (isNaN(value) || !isFinite(value)) return "0";
+  const targetCurrency = (!currency || currency === "AUTO" || currency === "USER")
+    ? (typeof window !== "undefined" ? detectUserCurrency() : "USD")
+    : currency;
+
   try {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency,
+      currency: targetCurrency,
       maximumFractionDigits: 2,
     }).format(value);
   } catch {
-    return `$${formatNumber(value)}`;
+    return `${targetCurrency} ${formatNumber(value)}`;
   }
 }
 

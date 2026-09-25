@@ -10,17 +10,17 @@ import PageSEO from '@/components/seo/PageSEO';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function PercentageCalculator() {
-  const [val1, setVal1] = useState('');
-  const [val2, setVal2] = useState('');
-  const [res1, setRes1] = useState<any>(null);
+  const [val1, setVal1] = useState('20');
+  const [val2, setVal2] = useState('100');
+  const [res1, setRes1] = useState<any>(() => calculatePercentageOf(20, 100));
   
-  const [val3, setVal3] = useState('');
-  const [val4, setVal4] = useState('');
-  const [res2, setRes2] = useState<any>(null);
+  const [val3, setVal3] = useState('25');
+  const [val4, setVal4] = useState('200');
+  const [res2, setRes2] = useState<any>(() => calculateWhatPercentage(25, 200));
 
-  const [val5, setVal5] = useState('');
-  const [val6, setVal6] = useState('');
-  const [res3, setRes3] = useState<any>(null);
+  const [val5, setVal5] = useState('50');
+  const [val6, setVal6] = useState('75');
+  const [res3, setRes3] = useState<any>(() => calculatePercentageChange(50, 75));
 
   return (
     <div className="container mx-auto py-8 max-w-7xl">
@@ -67,7 +67,11 @@ export default function PercentageCalculator() {
                     <Input placeholder="To" value={val6} onChange={e=>setVal6(e.target.value)} />
                   </div>
                   <Button onClick={() => setRes3(calculatePercentageChange(parseFloat(val5), parseFloat(val6)))}>Calculate</Button>
-                  {res3 !== null && <div className={`text-2xl font-bold mt-4 ${res3.isIncrease ? 'text-green-600' : 'text-red-600'}`}>Result: {res3.change}% ({res3.isIncrease ? 'Increase' : 'Decrease'})</div>}
+                  {res3 !== null && (
+                    <div className={`text-2xl font-bold mt-4 ${res3.type === 'increase' ? 'text-green-600' : res3.type === 'decrease' ? 'text-red-600' : 'text-muted-foreground'}`}>
+                      Result: {res3.percentageChange.toFixed(2)}% ({res3.type})
+                    </div>
+                  )}
                 </TabsContent>
               </Tabs>
             </CardContent>

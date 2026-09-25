@@ -10,9 +10,9 @@ import PageSEO from '@/components/seo/PageSEO';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function AgeCalculator() {
-  const [dob, setDob] = useState('');
+  const [dob, setDob] = useState('2000-01-01');
   const [targetDate, setTargetDate] = useState(new Date().toISOString().split('T')[0]);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<any>(() => calculateAge(new Date('2000-01-01'), new Date()));
 
   const handleCalculate = () => {
     if (dob && targetDate) {

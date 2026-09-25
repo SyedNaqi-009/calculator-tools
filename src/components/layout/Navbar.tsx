@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Calculator, ChevronDown, Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { CurrencySelector } from "@/components/shared/CurrencySelector";
 import SearchModal from "@/components/search/SearchModal";
 import MobileMenu from "@/components/layout/MobileMenu";
 import { cn } from "@/lib/utils";
@@ -110,6 +111,7 @@ export default function Navbar() {
               <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(true)} aria-label="Search">
                 <Search className="h-5 w-5" />
               </Button>
+              <CurrencySelector compact className="w-[85px] hidden sm:flex" />
               <ThemeToggle />
               
               <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMobileMenuOpen(true)} aria-label="Menu">

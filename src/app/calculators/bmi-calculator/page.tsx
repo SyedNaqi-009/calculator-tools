@@ -13,20 +13,20 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 export default function BMICalculator() {
   const [unit, setUnit] = useState('metric');
-  const [weight, setWeight] = useState('');
-  const [heightCm, setHeightCm] = useState('');
-  const [heightFt, setHeightFt] = useState('');
-  const [heightIn, setHeightIn] = useState('');
-  const [result, setResult] = useState<any>(null);
+  const [weight, setWeight] = useState('70');
+  const [heightCm, setHeightCm] = useState('175');
+  const [heightFt, setHeightFt] = useState('5');
+  const [heightIn, setHeightIn] = useState('9');
+  const [result, setResult] = useState<any>(() => calculateBMI(70, 175));
 
   const handleCalculate = () => {
     let w = parseFloat(weight);
     let h = 0;
     if (unit === 'imperial') {
       w = lbsToKg(w);
-      h = ftInToCm(parseFloat(heightFt) || 0, parseFloat(heightIn) || 0) / 100;
+      h = ftInToCm(parseFloat(heightFt) || 0, parseFloat(heightIn) || 0);
     } else {
-      h = parseFloat(heightCm) / 100;
+      h = parseFloat(heightCm);
     }
     if (w > 0 && h > 0) {
       setResult(calculateBMI(w, h));

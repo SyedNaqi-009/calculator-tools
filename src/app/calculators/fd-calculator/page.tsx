@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { formatCurrency } from "@/lib/utils";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { CurrencySelector } from "@/components/shared/CurrencySelector";
 
 export default function FDCalculatorPage() {
   const [principal, setPrincipal] = useState(100000);
@@ -29,12 +30,13 @@ export default function FDCalculatorPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 space-y-8">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle>FD Details</CardTitle>
+              <CurrencySelector className="w-28" />
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label>Principal Amount (₹)</Label>
+                <Label>Principal Amount</Label>
                 <Input type="number" value={principal} onChange={(e) => setPrincipal(Number(e.target.value))} />
               </div>
 
@@ -79,15 +81,15 @@ export default function FDCalculatorPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                 <div className="p-4 bg-muted rounded-xl">
                   <p className="text-sm text-muted-foreground mb-1">Total Investment</p>
-                  <p className="text-2xl font-bold">{formatCurrency(result.principal, "INR")}</p>
+                  <p className="text-2xl font-bold">{formatCurrency(result.principal)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-xl">
                   <p className="text-sm text-muted-foreground mb-1">Total Interest</p>
-                  <p className="text-2xl font-bold text-green-600">{formatCurrency(result.totalInterest, "INR")}</p>
+                  <p className="text-2xl font-bold text-green-600">{formatCurrency(result.totalInterest)}</p>
                 </div>
                 <div className="p-4 bg-primary/10 rounded-xl">
                   <p className="text-sm text-primary font-medium mb-1">Maturity Amount</p>
-                  <p className="text-2xl font-bold text-primary">{formatCurrency(result.maturityAmount, "INR")}</p>
+                  <p className="text-2xl font-bold text-primary">{formatCurrency(result.maturityAmount)}</p>
                 </div>
               </div>
             </CardContent>

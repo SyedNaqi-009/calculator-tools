@@ -9,6 +9,10 @@ export interface BMIResult {
   healthyWeightMaxKg: number;
   healthyWeightMinLbs: number;
   healthyWeightMaxLbs: number;
+  healthyWeightRange: {
+    min: number;
+    max: number;
+  };
 }
 
 export function lbsToKg(lbs: number): number {
@@ -71,5 +75,9 @@ export function calculateBMI(weightKg: number, heightCm: number): BMIResult {
     healthyWeightMaxKg: Number(healthyWeightMaxKg.toFixed(1)),
     healthyWeightMinLbs: Number(kgToLbs(healthyWeightMinKg).toFixed(1)),
     healthyWeightMaxLbs: Number(kgToLbs(healthyWeightMaxKg).toFixed(1)),
+    healthyWeightRange: {
+      min: Number(healthyWeightMinKg.toFixed(1)),
+      max: Number(healthyWeightMaxKg.toFixed(1)),
+    },
   };
 }

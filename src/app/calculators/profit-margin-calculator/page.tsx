@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { formatCurrency } from "@/lib/utils";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { CurrencySelector } from "@/components/shared/CurrencySelector";
 
 export default function ProfitMarginCalculatorPage() {
   // Tab 1: Cost & Revenue
@@ -32,8 +33,9 @@ export default function ProfitMarginCalculatorPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 space-y-8">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle>Calculation Methods</CardTitle>
+              <CurrencySelector className="w-28" />
             </CardHeader>
             <CardContent>
               <Tabs defaultValue="cost-revenue">
@@ -135,15 +137,15 @@ function ResultDisplay({ data }: { data: any }) {
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
       <div className="p-4 bg-muted rounded-xl text-center">
         <p className="text-sm text-muted-foreground mb-1">Cost</p>
-        <p className="text-xl font-bold">{formatCurrency(data.cost || 0, "USD")}</p>
+        <p className="text-xl font-bold">{formatCurrency(data.cost || 0)}</p>
       </div>
       <div className="p-4 bg-muted rounded-xl text-center">
         <p className="text-sm text-muted-foreground mb-1">Revenue</p>
-        <p className="text-xl font-bold">{formatCurrency(data.revenue || 0, "USD")}</p>
+        <p className="text-xl font-bold">{formatCurrency(data.revenue || 0)}</p>
       </div>
       <div className="p-4 bg-muted rounded-xl text-center">
         <p className="text-sm text-muted-foreground mb-1">Gross Profit</p>
-        <p className="text-xl font-bold text-green-600">{formatCurrency(data.profit || data.grossProfit || 0, "USD")}</p>
+        <p className="text-xl font-bold text-green-600">{formatCurrency(data.profit || data.grossProfit || 0)}</p>
       </div>
       <div className="p-4 bg-primary/10 rounded-xl text-center">
         <p className="text-sm text-primary font-medium mb-1">Margin</p>

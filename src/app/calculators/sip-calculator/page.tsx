@@ -8,6 +8,7 @@ import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { CurrencySelector } from "@/components/shared/CurrencySelector";
 
 export default function SIPCalculatorPage() {
   const [monthlyInvestment, setMonthlyInvestment] = useState(5000);
@@ -26,14 +27,15 @@ export default function SIPCalculatorPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 space-y-8">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle>Investment Details</CardTitle>
+              <CurrencySelector className="w-28" />
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label>Monthly Investment (₹)</Label>
-                  <span className="font-medium">{formatCurrency(monthlyInvestment, "INR")}</span>
+                  <Label>Monthly Investment</Label>
+                  <span className="font-medium">{formatCurrency(monthlyInvestment)}</span>
                 </div>
                 <Slider min={500} max={100000} step={500} value={[monthlyInvestment]} onValueChange={([v]) => setMonthlyInvestment(v)} />
                 <Input type="number" value={monthlyInvestment} onChange={(e) => setMonthlyInvestment(Number(e.target.value))} />
@@ -67,15 +69,15 @@ export default function SIPCalculatorPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                 <div className="p-4 bg-muted rounded-xl">
                   <p className="text-sm text-muted-foreground mb-1">Invested Amount</p>
-                  <p className="text-2xl font-bold">{formatCurrency(result.investedAmount, "INR")}</p>
+                  <p className="text-2xl font-bold">{formatCurrency(result.investedAmount)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-xl">
                   <p className="text-sm text-muted-foreground mb-1">Estimated Returns</p>
-                  <p className="text-2xl font-bold text-green-600">{formatCurrency(result.estimatedReturns, "INR")}</p>
+                  <p className="text-2xl font-bold text-green-600">{formatCurrency(result.estimatedReturns)}</p>
                 </div>
                 <div className="p-4 bg-primary/10 rounded-xl">
                   <p className="text-sm text-primary font-medium mb-1">Total Value</p>
-                  <p className="text-2xl font-bold text-primary">{formatCurrency(result.totalValue, "INR")}</p>
+                  <p className="text-2xl font-bold text-primary">{formatCurrency(result.totalValue)}</p>
                 </div>
               </div>
             </CardContent>

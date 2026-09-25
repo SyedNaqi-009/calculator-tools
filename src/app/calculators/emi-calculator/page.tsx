@@ -10,6 +10,7 @@ import { Slider } from "@/components/ui/slider";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { formatCurrency, formatNumber } from "@/lib/utils";
+import { CurrencySelector } from "@/components/shared/CurrencySelector";
 
 export default function EMICalculatorPage() {
   const [amount, setAmount] = useState(1000000);
@@ -31,14 +32,15 @@ export default function EMICalculatorPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 space-y-8">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle>EMI Details</CardTitle>
+              <CurrencySelector className="w-28" />
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label>Loan Amount (₹)</Label>
-                  <span className="font-medium">{formatCurrency(amount, "INR")}</span>
+                  <Label>Loan Amount</Label>
+                  <span className="font-medium">{formatCurrency(amount)}</span>
                 </div>
                 <Slider min={10000} max={10000000} step={10000} value={[amount]} onValueChange={([v]) => setAmount(v)} />
                 <Input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
@@ -78,15 +80,15 @@ export default function EMICalculatorPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                 <div className="p-4 bg-muted rounded-xl">
                   <p className="text-sm text-muted-foreground mb-1">Monthly EMI</p>
-                  <p className="text-2xl font-bold">{formatCurrency(result.emi, "INR")}</p>
+                  <p className="text-2xl font-bold">{formatCurrency(result.emi)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-xl">
                   <p className="text-sm text-muted-foreground mb-1">Total Interest</p>
-                  <p className="text-2xl font-bold">{formatCurrency(result.totalInterest, "INR")}</p>
+                  <p className="text-2xl font-bold">{formatCurrency(result.totalInterest)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-xl">
                   <p className="text-sm text-muted-foreground mb-1">Total Payment</p>
-                  <p className="text-2xl font-bold">{formatCurrency(result.totalPayment, "INR")}</p>
+                  <p className="text-2xl font-bold">{formatCurrency(result.totalPayment)}</p>
                 </div>
               </div>
             </CardContent>

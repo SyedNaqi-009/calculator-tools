@@ -19,6 +19,8 @@ const API_URL = "https://api.exchangerate-api.com/v4/latest/USD";
 const CACHE_KEY = "calchub_currency_rates";
 const CACHE_EXPIRY = 60 * 60 * 1000; // 1 hour
 
+import { detectUserCurrency } from "@/lib/currency";
+
 export default function CurrencyConverterPage() {
   const [amount, setAmount] = useState<string>("1");
   const [fromCurrency, setFromCurrency] = useState<string>("USD");
@@ -55,6 +57,14 @@ export default function CurrencyConverterPage() {
 
   useEffect(() => {
     fetchRates();
+    const userCurr = detectUserCurrency();
+    if (userCurr) {
+      if (userCurr === "USD") {
+        setToCurrency("EUR");
+      } else {
+        setToCurrency(userCurr);
+      }
+    }
   }, []);
 
   const handleSwap = () => {

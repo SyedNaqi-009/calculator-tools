@@ -71,17 +71,35 @@ export function evaluateScientificFunction(
   }
 }
 
-// Tokenizer & Safe Expression Evaluator
-export function evaluateMathExpression(expr: string): number {
-  const sanitized = expr
+// Tokenizer & Safe Expression Evaluator with scientific functions support
+export function evaluateMathExpression(expr: string, mode: AngleMode = "DEG"): number {
+  if (!expr || !expr.trim()) return 0;
+
+  let sanitized = expr
     .replace(/×/g, "*")
     .replace(/÷/g, "/")
     .replace(/−/g, "-")
     .replace(/π/g, `${Math.PI}`)
-    .replace(/e/g, `${Math.E}`);
+    .replace(/\bpi\b/gi, `${Math.PI}`)
+    .replace(/\be\b/g, `${Math.E}`);
 
-  // Safe tokenizer matching numbers, operators, parentheses
-  const tokens = sanitized.match(/(\d+(\.\d+)?|[+\-*/^()])/g);
+  // Handle factorials (e.g. 5!)
+  sanitized = sanitized.replace(/(\d+(\.\d+)?)!/g, (_, num) => `${factorial(Number(num))}`);
+
+  // Recursively resolve inner scientific functions: sin, cos, tan, asin, acos, atan, log, ln, sqrt, abs
+  const fnRegex = /(sin|cos|tan|asin|acos|atan|log|ln|sqrt|abs)\(([^()]+)\)/i;
+  let safety = 0;
+  while (fnRegex.test(sanitized) && safety < 30) {
+    safety++;
+    sanitized = sanitized.replace(fnRegex, (_, fn, inner) => {
+      const innerVal = evaluateMathExpression(inner, mode);
+      const res = evaluateScientificFunction(fn.toLowerCase(), innerVal, mode);
+      return isNaN(res) ? "0" : `${res}`;
+    });
+  }
+
+  // Safe tokenizer matching numbers (including scientific notation e.g. 1e-5), operators, parentheses
+  const tokens = sanitized.match(/(\d+(\.\d+)?([eE][+-]?\d+)?|[+\-*/^()])/g);
   if (!tokens || tokens.length === 0) return 0;
 
   // Shunting-yard algorithm
@@ -129,7 +147,10 @@ export function evaluateMathExpression(expr: string): number {
   }
 
   while (opStack.length > 0) {
-    outputQueue.push(opStack.pop()!);
+    const top = opStack.pop()!;
+    if (top !== "(" && top !== ")") {
+      outputQueue.push(top);
+    }
   }
 
   // Evaluate Reverse Polish Notation (RPN)
@@ -160,5 +181,6 @@ export function evaluateMathExpression(expr: string): number {
     }
   }
 
-  return evalStack.length > 0 ? evalStack[0] : 0;
+  const result = evalStack.length > 0 ? evalStack[0] : 0;
+  return Number.isFinite(result) ? Number(result.toFixed(10)) / 1 : NaN;
 }

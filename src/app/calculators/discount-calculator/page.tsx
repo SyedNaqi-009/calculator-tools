@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,32 +8,54 @@ import { Button } from '@/components/ui/button';
 import { calculateDiscount } from '@/lib/calculators/discount';
 import PageSEO from '@/components/seo/PageSEO';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { CurrencySelector } from '@/components/shared/CurrencySelector';
+import { formatCurrency } from '@/lib/utils';
 
 export default function DiscountCalculator() {
-  const [price, setPrice] = useState('');
-  const [discount, setDiscount] = useState('');
-  const [result, setResult] = useState<any>(null);
+  const [price, setPrice] = useState('100');
+  const [discount, setDiscount] = useState('20');
+  const [result, setResult] = useState<any>(() => calculateDiscount(100, 20));
 
-  const handleCalculate = () => {
-    if (price && discount) {
-      setResult(calculateDiscount(parseFloat(price), parseFloat(discount)));
+  const updateCalculation = (p: string, d: string) => {
+    const pNum = parseFloat(p);
+    const dNum = parseFloat(d);
+    if (!isNaN(pNum) && !isNaN(dNum) && pNum >= 0 && dNum >= 0) {
+      setResult(calculateDiscount(pNum, dNum));
     }
+  };
+
+  const handlePriceChange = (val: string) => {
+    setPrice(val);
+    updateCalculation(val, discount);
+  };
+
+  const handleDiscountChange = (val: string) => {
+    setDiscount(val);
+    updateCalculation(price, val);
   };
 
   return (
     <div className="container mx-auto py-8 max-w-7xl">
       <PageSEO title="Discount Calculator | CalcHub" description="Calculate discounts, final price, and total savings." />
       <h1 className="text-3xl font-bold mb-4">Discount Calculator</h1>
-      <p className="mb-8 text-gray-600">Find out the final price after applying a discount.</p>
+      <p className="mb-8 text-gray-600">Find out the final price after applying a discount in your local currency.</p>
       
       <div className="grid lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 space-y-8">
           <Card>
-            <CardHeader><CardTitle>Calculator</CardTitle></CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle>Discount Details</CardTitle>
+              <CurrencySelector className="w-28" />
+            </CardHeader>
             <CardContent className="space-y-4">
-              <div><Label>Original Price</Label><Input type="number" value={price} onChange={e => setPrice(e.target.value)} /></div>
-              <div><Label>Discount (%)</Label><Input type="number" value={discount} onChange={e => setDiscount(e.target.value)} /></div>
-              <Button onClick={handleCalculate} className="w-full">Calculate</Button>
+              <div>
+                <Label>Original Price</Label>
+                <Input type="number" value={price} onChange={e => handlePriceChange(e.target.value)} placeholder="100" />
+              </div>
+              <div>
+                <Label>Discount (%)</Label>
+                <Input type="number" value={discount} onChange={e => handleDiscountChange(e.target.value)} placeholder="20" />
+              </div>
             </CardContent>
           </Card>
 
@@ -41,9 +63,9 @@ export default function DiscountCalculator() {
             <Card>
               <CardHeader><CardTitle>Result</CardTitle></CardHeader>
               <CardContent>
-                <div className="text-4xl font-bold text-green-600">Final Price: ${result.finalPrice.toFixed(2)}</div>
-                <p className="mt-2 text-gray-500 line-through">Original: ${parseFloat(price).toFixed(2)}</p>
-                <p className="mt-4 font-medium text-lg">You Save: ${result.savings.toFixed(2)}</p>
+                <div className="text-4xl font-bold text-green-600">Final Price: {formatCurrency(result.finalPrice)}</div>
+                <p className="mt-2 text-gray-500 line-through">Original: {formatCurrency(parseFloat(price) || 0)}</p>
+                <p className="mt-4 font-medium text-lg">You Save: {formatCurrency(result.savings)} ({discount}%)</p>
               </CardContent>
             </Card>
           )}
