@@ -4,52 +4,71 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --card: 210 20% 98%;
+    /* Light Mode: Crisp Architectural Technical Paper */
+    --background: 216 33% 98%;      /* #f8fafc slate-50 */
+    --foreground: 222 47% 11%;      /* #0f172a slate-900 */
+    --card: 0 0% 100%;             /* Pure clean crisp white */
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 217 91% 60%;
+    
+    /* Brand Accent: Precision Indigo-Cyan hybrid (hue 226, sat 70%, lum 46%) */
+    --primary: 226 70% 46%;         /* #254bd0 / deep royal precision */
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 220 9% 46%;
-    --muted-foreground: 220 9% 46%;
-    --accent: 263 70% 50%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
+    
+    /* Secondary: Technical hairline slate */
+    --secondary: 214 32% 93%;       /* #e2e8f0 */
+    --secondary-foreground: 222 47% 16%;
+    
+    --muted: 215 16% 47%;          /* #64748b */
+    --muted-foreground: 215 16% 47%;
+    
+    --accent: 214 32% 93%;
+    --accent-foreground: 222 47% 11%;
+    
+    --destructive: 0 72% 51%;      /* #dc2626 */
     --destructive-foreground: 0 0% 100%;
-    --success: 160 84% 39%;
+    
+    --success: 158 64% 36%;        /* #107c55 deep fintech emerald */
     --success-foreground: 0 0% 100%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 217 91% 60%;
-    --radius: 1rem;
+    
+    --border: 214 28% 89%;         /* Hairline engineered divider */
+    --input: 214 28% 89%;
+    --ring: 226 70% 46%;
+    --radius: 0.875rem;            /* 14px refined curvature, not bloated round */
   }
  
   .dark {
-    --background: 240 10% 4%;
-    --foreground: 220 14% 96%;
-    --card: 222 47% 11%;
-    --card-foreground: 220 14% 96%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 220 14% 96%;
-    --primary: 217 91% 65%;
+    /* Dark Mode: Deep Midnight Trading Floor Terminal */
+    --background: 224 45% 6%;      /* #070a12 deep obsidian void */
+    --foreground: 210 30% 98%;     /* #f8fafc */
+    --card: 224 35% 9%;            /* #0d121f obsidian slate card */
+    --card-foreground: 210 30% 98%;
+    --popover: 224 35% 9%;
+    --popover-foreground: 210 30% 98%;
+    
+    /* Primary Accent in dark: Vibrant electric azure */
+    --primary: 224 76% 56%;        /* #3b66ff */
     --primary-foreground: 0 0% 100%;
-    --secondary: 215 28% 17%;
-    --secondary-foreground: 220 14% 96%;
-    --muted: 220 9% 46%;
-    --muted-foreground: 218 11% 65%;
-    --accent: 263 70% 65%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 63% 31%;
+    
+    --secondary: 223 27% 14%;      /* #1a2233 */
+    --secondary-foreground: 210 30% 94%;
+    
+    --muted: 215 20% 55%;          /* #8090a7 */
+    --muted-foreground: 215 20% 55%;
+    
+    --accent: 223 27% 14%;
+    --accent-foreground: 210 30% 98%;
+    
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --success: 160 64% 50%;
+    
+    --success: 158 64% 45%;
     --success-foreground: 0 0% 100%;
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
-    --ring: 217 91% 65%;
+    
+    --border: 223 27% 15%;         /* Sharp 1px technical dark border */
+    --input: 223 27% 15%;
+    --ring: 224 76% 56%;
   }
 }
 
@@ -59,36 +78,44 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum" 1;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   :focus-visible {
-    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+    @apply outline-none ring-2 ring-primary/80 ring-offset-2 ring-offset-background;
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Technical Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
-  border-radius: 5px;
+  background: hsl(var(--border));
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground));
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
+/* Micro-patterns & Engineered Accents */
+.tech-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, hsl(var(--border) / 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border) / 0.5) 1px, transparent 1px);
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+.tech-dot-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(hsl(var(--muted-foreground) / 0.15) 1px, transparent 1px);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }

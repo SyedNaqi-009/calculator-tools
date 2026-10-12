@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";
 import Script from "next/script";
-import { Analytics } from "@vercel/analytics/next";
 
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -12,30 +11,32 @@ import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { CookieConsent } from "@/components/shared/CookieConsent";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/constants";
 
-const inter = Inter({ 
+const plusJakarta = Plus_Jakarta_Sans({ 
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#fafbfd" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0f17" },
   ],
 };
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} - Free Online Calculators`,
+    default: `${SITE_NAME} - Free High-Precision Online Calculators`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -72,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${plusJakarta.variable} ${jetbrainsMono.variable}`}>
       <head>
         {/* TODO: Add Google AdSense client ID here when available */}
         {/* <Script
@@ -108,7 +109,6 @@ export default function RootLayout({
           <CookieConsent />
           <Toaster richColors position="top-right" />
         </ThemeProvider>
-        <Analytics />
       </body>
     </html>
   );

@@ -110,74 +110,121 @@ export default function Home() {
       <JsonLd data={websiteSchema} />
       <JsonLd data={orgSchema} />
       
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary/10 to-background pt-24 pb-16 md:pt-32 md:pb-24">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-6 text-primary">
-            <Calculator className="w-6 h-6" />
+      {/* Bespoke Fintech Architectural Hero */}
+      <section className="relative overflow-hidden border-b border-border/80 bg-background pt-16 pb-16 md:pt-24 md:pb-20">
+        <div className="absolute inset-0 tech-grid-pattern opacity-60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/60 to-background pointer-events-none" />
+        
+        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-5xl">
+          {/* Status Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-mono font-medium mb-6 backdrop-blur-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>FINTECH GRADE COMPUTATION ENGINE</span>
+            <span className="text-muted-foreground/60">|</span>
+            <span className="text-muted-foreground">ZERO SERVER LATENCY</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 max-w-4xl mx-auto">
-            Free Online Calculator Tools
+
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground mb-6 max-w-4xl mx-auto leading-[1.12]">
+            High-Precision Calculators for <span className="text-primary underline decoration-primary/30 decoration-wavy decoration-2">Finance, Health & Math</span>
           </h1>
-          <p className="text-xl text-muted mb-10 max-w-2xl mx-auto">
-            Quick, accurate, and easy-to-use calculators for finance, health, math, and everyday utility.
+
+          <p className="text-base sm:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+            Execute complex loan amortizations, SIP forecasting, Body Mass Index metrics, and scientific expressions with instant client-side execution.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto">
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
             <Link href="/search" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-lg rounded-full">
-                <Search className="w-5 h-5 mr-2" />
-                Find a Calculator
+              <Button size="lg" className="w-full sm:w-auto h-11 px-6 text-sm font-semibold rounded-lg shadow-sm gap-2">
+                <Search className="w-4 h-4" />
+                Find Calculator (⌘K)
               </Button>
             </Link>
-            <Button size="lg" variant="outline" asChild className="w-full sm:w-auto h-14 px-8 text-lg rounded-full">
-              <Link href="/calculators">Browse All</Link>
+            <Button size="lg" variant="outline" asChild className="w-full sm:w-auto h-11 px-6 text-sm font-semibold rounded-lg">
+              <Link href="/calculators">Explore All 20+ Tools</Link>
             </Button>
+          </div>
+
+          {/* Metric Bar Ribbon */}
+          <div className="mt-14 pt-8 border-t border-border/80 grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+            <div className="p-3.5 rounded-lg bg-card/60 border border-border/60">
+              <div className="font-mono text-xl sm:text-2xl font-bold text-foreground tabular-nums">20+</div>
+              <div className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider mt-0.5">Specialized Tools</div>
+            </div>
+            <div className="p-3.5 rounded-lg bg-card/60 border border-border/60">
+              <div className="font-mono text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">0 ms</div>
+              <div className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider mt-0.5">Server Overhead</div>
+            </div>
+            <div className="p-3.5 rounded-lg bg-card/60 border border-border/60">
+              <div className="font-mono text-xl sm:text-2xl font-bold text-foreground tabular-nums">150+</div>
+              <div className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider mt-0.5">Currencies Supported</div>
+            </div>
+            <div className="p-3.5 rounded-lg bg-card/60 border border-border/60">
+              <div className="font-mono text-xl sm:text-2xl font-bold text-primary tabular-nums">100%</div>
+              <div className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider mt-0.5">Private In-Browser</div>
+            </div>
           </div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-16 space-y-24">
-        {/* Popular Calculators */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+        {/* Popular Calculators Grid */}
         <section>
-          <h2 className="text-3xl font-bold mb-8 text-center">Most Popular Calculators</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-wider text-primary font-semibold">Curated Essentials</span>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-1">Most Utilized Calculators</h2>
+            </div>
+            <Link href="/calculators" className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+              Browse Complete Directory →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {popularCalcs.map(calc => (
               <CalculatorCard key={calc.slug} calculator={calc} />
             ))}
           </div>
         </section>
 
-        {/* How It Works */}
-        <section className="bg-muted/30 rounded-3xl p-8 md:p-12 text-center border border-border">
-          <h2 className="text-3xl font-bold mb-12">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold mb-4">1</div>
-              <h3 className="text-xl font-semibold mb-2">Choose</h3>
-              <p className="text-muted">Select the calculator you need from our extensive collection.</p>
+        {/* Technical Architecture Feature */}
+        <section className="relative overflow-hidden rounded-xl border border-border/80 bg-card p-6 sm:p-10">
+          <div className="max-w-2xl mb-8">
+            <span className="font-mono text-xs uppercase tracking-wider text-primary font-semibold">Engineered Architecture</span>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-1">How Our Computation Works</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2">
+              CalcHub is designed from the ground up for strict privacy, zero computational latency, and mathematical precision.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-5 rounded-lg bg-background border border-border/70 space-y-2">
+              <div className="w-8 h-8 rounded-md bg-primary/10 text-primary font-mono font-bold flex items-center justify-center text-sm border border-primary/20">01</div>
+              <h3 className="text-sm font-bold text-foreground">Client-Side Calculation</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">No inputs leave your device. All mathematical evaluations run directly via local V8 engine pipelines.</p>
             </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold mb-4">2</div>
-              <h3 className="text-xl font-semibold mb-2">Calculate</h3>
-              <p className="text-muted">Enter your values. All calculations are done instantly in your browser.</p>
+            <div className="p-5 rounded-lg bg-background border border-border/70 space-y-2">
+              <div className="w-8 h-8 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono font-bold flex items-center justify-center text-sm border border-emerald-500/20">02</div>
+              <h3 className="text-sm font-bold text-foreground">Global Localization</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">Automatic currency detection adapts monetary tables to PKR, INR, USD, EUR, GBP or any currency code instantly.</p>
             </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold mb-4">3</div>
-              <h3 className="text-xl font-semibold mb-2">Analyze</h3>
-              <p className="text-muted">View detailed results, charts, and schedules based on your inputs.</p>
+            <div className="p-5 rounded-lg bg-background border border-border/70 space-y-2">
+              <div className="w-8 h-8 rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-mono font-bold flex items-center justify-center text-sm border border-indigo-500/20">03</div>
+              <h3 className="text-sm font-bold text-foreground">High Precision Formulas</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">Validated against standard actuarial amortization schedules, WHO body indices, and standard algebraic models.</p>
             </div>
           </div>
         </section>
 
-        {/* All Calculators Preview */}
+        {/* Complete Suite Grid */}
         <section>
-          <div className="flex justify-between items-end mb-8">
-            <h2 className="text-3xl font-bold">All Calculators</h2>
-            <Button variant="ghost" asChild>
-              <Link href="/calculators">View All →</Link>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold">Comprehensive Directory</span>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-1">Full Calculator Suite</h2>
+            </div>
+            <Button variant="outline" size="sm" asChild className="text-xs">
+              <Link href="/calculators">Filter by Category</Link>
             </Button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {CALCULATORS.map(calc => (
               <CalculatorCard key={calc.slug} calculator={calc} />
             ))}

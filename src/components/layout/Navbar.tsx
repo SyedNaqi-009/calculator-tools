@@ -53,18 +53,32 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-border/80 bg-background/90 backdrop-blur-md transition-colors">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-8">
-              <Link href="/" className="flex items-center gap-2">
-                <Calculator className="h-8 w-8 text-primary" />
-                <span className="text-xl font-bold tracking-tight">CalcHub</span>
+              <Link href="/" className="flex items-center gap-2.5 group">
+                <div className="h-9 w-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-200">
+                  <Calculator className="h-5 w-5" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-base font-bold tracking-tight text-foreground flex items-center gap-1.5 leading-none">
+                    CalcHub
+                    <span className="text-[10px] font-mono font-medium px-1.5 py-0.2 rounded bg-primary/10 text-primary border border-primary/20">v2.0</span>
+                  </span>
+                  <span className="text-[10px] text-muted-foreground tracking-wider uppercase font-mono mt-0.5">Precision Suite</span>
+                </div>
               </Link>
               
-              <nav className="hidden md:flex items-center gap-6">
-                <Link href="/" className={cn("text-sm font-medium transition-colors hover:text-primary", pathname === "/" ? "text-primary" : "text-muted-foreground")}>
-                  Home
+              <nav className="hidden md:flex items-center gap-1">
+                <Link 
+                  href="/" 
+                  className={cn(
+                    "text-xs font-semibold px-3 py-1.5 rounded-md transition-colors", 
+                    pathname === "/" ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                  )}
+                >
+                  Overview
                 </Link>
                 
                 <div 
@@ -72,20 +86,31 @@ export default function Navbar() {
                   onMouseEnter={() => setIsMegaMenuOpen(true)}
                   onMouseLeave={() => setIsMegaMenuOpen(false)}
                 >
-                  <button className={cn("flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary", pathname.startsWith("/calculators") ? "text-primary" : "text-muted-foreground")}>
-                    Calculators <ChevronDown className="h-4 w-4" />
+                  <button 
+                    className={cn(
+                      "flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-md transition-colors", 
+                      pathname.startsWith("/calculators") ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                    )}
+                  >
+                    Calculators <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                   </button>
                   
                   {isMegaMenuOpen && (
-                    <div className="absolute top-full left-0 pt-4 w-[600px] z-50">
-                      <div className="rounded-2xl border bg-card p-6 shadow-xl grid grid-cols-3 gap-6">
+                    <div className="absolute top-full left-0 pt-2 w-[640px] z-50 animate-in fade-in-50 zoom-in-95 duration-150">
+                      <div className="rounded-xl border border-border bg-card p-6 shadow-xl grid grid-cols-3 gap-6">
                         {Object.entries(CALCULATOR_CATEGORIES).map(([category, links]) => (
-                          <div key={category} className="space-y-3">
-                            <h4 className="font-semibold text-sm text-foreground">{category}</h4>
-                            <ul className="space-y-2">
+                          <div key={category} className="space-y-2.5">
+                            <h4 className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                              {category}
+                            </h4>
+                            <ul className="space-y-1.5">
                               {links.map((link) => (
                                 <li key={link.href}>
-                                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors block">
+                                  <Link 
+                                    href={link.href} 
+                                    className="text-xs text-foreground/80 hover:text-primary transition-colors block py-0.5 hover:translate-x-0.5 transform duration-100"
+                                  >
                                     {link.name}
                                   </Link>
                                 </li>
@@ -98,24 +123,59 @@ export default function Navbar() {
                   )}
                 </div>
 
-                <Link href="/blog" className={cn("text-sm font-medium transition-colors hover:text-primary", pathname.startsWith("/blog") ? "text-primary" : "text-muted-foreground")}>
-                  Blog
+                <Link 
+                  href="/blog" 
+                  className={cn(
+                    "text-xs font-semibold px-3 py-1.5 rounded-md transition-colors", 
+                    pathname.startsWith("/blog") ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                  )}
+                >
+                  Insights & Guides
                 </Link>
-                <Link href="/about" className={cn("text-sm font-medium transition-colors hover:text-primary", pathname === "/about" ? "text-primary" : "text-muted-foreground")}>
+                <Link 
+                  href="/about" 
+                  className={cn(
+                    "text-xs font-semibold px-3 py-1.5 rounded-md transition-colors", 
+                    pathname === "/about" ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                  )}
+                >
                   About
                 </Link>
               </nav>
             </div>
 
-            <div className="flex items-center gap-2 md:gap-4">
-              <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(true)} aria-label="Search">
-                <Search className="h-5 w-5" />
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => setIsSearchOpen(true)} 
+                className="h-8 px-2.5 text-xs text-muted-foreground hidden sm:flex items-center gap-2 border-border/80 bg-background/50 hover:bg-secondary"
+                aria-label="Search calculators"
+              >
+                <Search className="h-3.5 w-3.5" />
+                <span>Search tools...</span>
+                <kbd className="pointer-events-none inline-flex h-4 select-none items-center gap-1 rounded border bg-muted px-1 font-mono text-[9px] font-medium text-muted-foreground">⌘K</kbd>
               </Button>
-              <CurrencySelector compact className="w-[85px] hidden sm:flex" />
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => setIsSearchOpen(true)} 
+                className="sm:hidden h-8 w-8"
+                aria-label="Search"
+              >
+                <Search className="h-4 w-4" />
+              </Button>
+              <CurrencySelector compact className="w-[82px] h-8 text-[11px]" />
               <ThemeToggle />
               
-              <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMobileMenuOpen(true)} aria-label="Menu">
-                <Menu className="h-5 w-5" />
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="md:hidden h-8 w-8" 
+                onClick={() => setIsMobileMenuOpen(true)} 
+                aria-label="Menu"
+              >
+                <Menu className="h-4 w-4" />
               </Button>
             </div>
           </div>

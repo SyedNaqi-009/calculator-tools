@@ -152,38 +152,56 @@ export default function ScientificCalculatorPage() {
         description="Free online scientific calculator with live input display, keyboard support, trigonometric functions, exponents, and history."
         url="/calculators/scientific-calculator"
       />
-      <div className="container mx-auto px-4 py-8">
-        <nav className="text-sm mb-4 text-muted-foreground">
-          <Link href="/" className="hover:underline">Home</Link> &gt; 
-          <Link href="/calculators" className="hover:underline ml-1">Calculators</Link> &gt; 
-          <span className="ml-1">Scientific Calculator</span>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav className="text-xs mb-6 text-muted-foreground font-mono flex items-center gap-1.5">
+          <Link href="/" className="hover:text-primary transition-colors">HOME</Link>
+          <span className="opacity-40">/</span>
+          <Link href="/calculators" className="hover:text-primary transition-colors">CALCULATORS</Link>
+          <span className="opacity-40">/</span>
+          <span className="text-foreground font-semibold">SCIENTIFIC CALCULATOR</span>
         </nav>
         
-        <h1 className="text-4xl font-bold mb-2">Scientific Calculator</h1>
-        <p className="text-xl text-muted-foreground mb-8">Perform arithmetic, trigonometry, logarithms, and scientific calculations with live keyboard input.</p>
+        <div className="max-w-4xl mb-6">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[11px] font-mono mb-2">
+            <span>ENGINEERING TERMINAL · LIVE KEYBOARD ENABLED</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground mb-2">
+            Scientific Math Engine
+          </h1>
+          <p className="text-xs sm:text-sm text-muted-foreground">
+            Perform high-precision trigonometry, logarithms, power radicals, and algebraic expressions with physical keyboard support.
+          </p>
+        </div>
         
         <AdBanner />
 
-        <div className="grid lg:grid-cols-12 gap-8 mt-8">
+        <div className="grid lg:grid-cols-12 gap-8 mt-6">
           <div className="lg:col-span-8">
-            <Card className="mb-8 max-w-2xl mx-auto shadow-lg border-2">
-              <CardContent className="p-6">
-                {/* Calculator Display Screen */}
+            <Card className="mb-8 max-w-2xl mx-auto border border-border/80 bg-card shadow-[0_4px_24px_-4px_rgb(0_0_0/0.08)] rounded-xl overflow-hidden">
+              <CardContent className="p-5 sm:p-7">
+                {/* Precision Instrument Display Screen */}
                 <div 
-                  className="bg-card border-2 border-border/80 rounded-2xl p-5 mb-5 font-mono shadow-inner cursor-text focus-within:ring-2 focus-within:ring-primary"
+                  className="bg-slate-950 text-slate-100 border border-slate-800 rounded-lg p-5 mb-5 font-mono shadow-inner cursor-text focus-within:ring-2 focus-within:ring-primary/80 transition-all"
                   onClick={() => inputRef.current?.focus()}
                 >
-                  {/* Previous calculation / History breadcrumb */}
-                  <div className="text-sm text-muted-foreground min-h-[22px] flex justify-between items-center mb-1">
-                    <span className="truncate">
-                      {history.length > 0 && `${history[0].expr} = ${history[0].ans}`}
+                  {/* Previous calculation / Status Bar */}
+                  <div className="text-xs text-slate-400 min-h-[22px] flex justify-between items-center mb-2 pb-2 border-b border-slate-800/80">
+                    <span className="truncate max-w-[260px] sm:max-w-[360px] font-mono text-[11px]">
+                      {history.length > 0 ? `${history[0].expr} = ${history[0].ans}` : "RAD/DEG READY"}
                     </span>
-                    <span className="text-xs px-2 py-0.5 rounded bg-muted font-sans font-semibold">
-                      {angleMode} {memory !== 0 ? `| M: ${memory}` : ""}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-emerald-400 font-mono font-bold tracking-wider">
+                        {angleMode}
+                      </span>
+                      {memory !== 0 && (
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-amber-400 font-mono font-bold">
+                          M: {memory}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Main Input Display (Shows what user is typing in REAL TIME) */}
+                  {/* Main Expression Input Field */}
                   <div className="relative">
                     <input
                       ref={inputRef}
@@ -194,49 +212,81 @@ export default function ScientificCalculatorPage() {
                         setIsCalculated(false);
                       }}
                       placeholder="0"
-                      className="w-full bg-transparent text-right text-3xl md:text-4xl font-bold text-foreground tracking-wide focus:outline-none placeholder:text-muted-foreground/40 font-mono"
+                      className="w-full bg-transparent text-right text-3xl sm:text-4xl font-bold text-slate-50 tracking-wider focus:outline-none placeholder:text-slate-700 font-mono tabular-nums"
                       autoFocus
                     />
                   </div>
 
-                  {/* Live Answer or Result Display */}
-                  <div className="min-h-[28px] text-right mt-1">
+                  {/* High-Visibility Output Screen */}
+                  <div className="min-h-[30px] text-right mt-2 pt-1 border-t border-slate-800/40">
                     {result && isCalculated ? (
-                      <div className="text-2xl md:text-3xl font-extrabold text-primary animate-in fade-in duration-150">
+                      <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono tabular-nums">
                         = {result}
                       </div>
                     ) : livePreview ? (
-                      <div className="text-lg md:text-xl font-medium text-muted-foreground/80">
+                      <div className="text-base sm:text-lg font-medium text-slate-400 font-mono tabular-nums">
                         {livePreview}
                       </div>
                     ) : (
-                      <div className="text-sm text-muted-foreground/40">Ready</div>
+                      <div className="text-xs text-slate-600 font-mono">STANDBY</div>
                     )}
                   </div>
                 </div>
 
-                {/* Top Control Bar: Mode, Memory, Clear */}
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-4 text-xs font-semibold">
-                  <div className="flex gap-1.5">
-                    <Button 
-                      variant={angleMode === "DEG" ? "default" : "outline"} 
-                      size="sm" 
-                      onClick={toggleAngleMode}
-                      className="h-8 px-3 font-mono"
+                {/* Instrument Mode Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-4 text-xs">
+                  <div className="flex items-center gap-1.5">
+                    <Button
+                      variant={angleMode === "DEG" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setAngleMode("DEG")}
+                      className="h-7 px-2.5 text-[11px] font-mono rounded"
                     >
-                      {angleMode}
+                      DEG
                     </Button>
-                    <Button variant="outline" size="sm" onClick={memoryClear} className="h-8 px-2 font-mono">MC</Button>
-                    <Button variant="outline" size="sm" onClick={memoryRecall} className="h-8 px-2 font-mono">MR</Button>
-                    <Button variant="outline" size="sm" onClick={memoryAdd} className="h-8 px-2 font-mono">M+</Button>
-                    <Button variant="outline" size="sm" onClick={memorySubtract} className="h-8 px-2 font-mono">M-</Button>
+                    <Button
+                      variant={angleMode === "RAD" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setAngleMode("RAD")}
+                      className="h-7 px-2.5 text-[11px] font-mono rounded"
+                    >
+                      RAD
+                    </Button>
                   </div>
-                  <div className="flex gap-1.5">
-                    <Button variant="destructive" size="sm" onClick={handleClear} className="h-8 px-3">
-                      <RotateCcw className="w-3.5 h-3.5 mr-1" /> AC
+
+                  <div className="flex items-center gap-1 font-mono">
+                    <Button variant="ghost" size="sm" onClick={memoryClear} className="h-7 px-2 text-[11px] rounded" title="Memory Clear">
+                      MC
                     </Button>
-                    <Button variant="secondary" size="sm" onClick={handleDelete} className="h-8 px-3">
-                      <Delete className="w-3.5 h-3.5 mr-1" /> Del
+                    <Button variant="ghost" size="sm" onClick={memoryRecall} className="h-7 px-2 text-[11px] rounded" title="Memory Recall">
+                      MR
+                    </Button>
+                    <Button variant="ghost" size="sm" onClick={memoryAdd} className="h-7 px-2 text-[11px] rounded" title="Memory Add">
+                      M+
+                    </Button>
+                    <Button variant="ghost" size="sm" onClick={memorySubtract} className="h-7 px-2 text-[11px] rounded" title="Memory Subtract">
+                      M-
+                    </Button>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={handleClear}
+                      className="h-7 px-2.5 text-[11px] font-mono rounded gap-1"
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                      AC
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={handleDelete}
+                      className="h-7 px-2.5 text-[11px] font-mono rounded gap-1"
+                    >
+                      <Delete className="w-3 h-3" />
+                      DEL
                     </Button>
                   </div>
                 </div>
@@ -244,11 +294,11 @@ export default function ScientificCalculatorPage() {
                 {/* Scientific & Arithmetic Button Grid */}
                 <div className="grid grid-cols-5 gap-2 select-none">
                   {/* Row 1: Scientific Functions */}
-                  <Button variant="secondary" onClick={() => handlePress("sin(")} className="font-mono text-sm">sin</Button>
-                  <Button variant="secondary" onClick={() => handlePress("cos(")} className="font-mono text-sm">cos</Button>
-                  <Button variant="secondary" onClick={() => handlePress("tan(")} className="font-mono text-sm">tan</Button>
-                  <Button variant="outline" onClick={() => handlePress("(")} className="font-mono text-base">(</Button>
-                  <Button variant="outline" onClick={() => handlePress(")")} className="font-mono text-base">)</Button>
+                  <Button variant="secondary" onClick={() => handlePress("sin(")} className="font-mono text-xs sm:text-sm h-10 border border-border/60 hover:border-primary/40">sin</Button>
+                  <Button variant="secondary" onClick={() => handlePress("cos(")} className="font-mono text-xs sm:text-sm h-10 border border-border/60 hover:border-primary/40">cos</Button>
+                  <Button variant="secondary" onClick={() => handlePress("tan(")} className="font-mono text-xs sm:text-sm h-10 border border-border/60 hover:border-primary/40">tan</Button>
+                  <Button variant="outline" onClick={() => handlePress("(")} className="font-mono text-sm h-10 border border-border/80">(</Button>
+                  <Button variant="outline" onClick={() => handlePress(")")} className="font-mono text-sm h-10 border border-border/80">)</Button>
 
                   {/* Row 2: Inverse Trig & Logs */}
                   <Button variant="secondary" onClick={() => handlePress("asin(")} className="font-mono text-xs">asin</Button>

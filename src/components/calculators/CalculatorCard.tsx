@@ -27,24 +27,39 @@ export function CalculatorCard({ calculator }: CalculatorCardProps) {
   const description = calculator.shortDescription || calculator.description || "";
 
   return (
-    <Link href={`/calculators/${slug}`} className="block h-full">
+    <Link href={`/calculators/${slug}`} className="group block h-full select-none">
       <motion.div
-        whileHover={{ scale: 1.02, y: -4 }}
-        whileTap={{ scale: 0.98 }}
-        className="flex flex-col h-full p-6 bg-card border border-border rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+        whileHover={{ y: -3 }}
+        transition={{ duration: 0.15, ease: "easeOut" }}
+        className="relative flex flex-col h-full p-5 bg-card border border-border/80 rounded-xl shadow-[0_1px_3px_0_rgb(0_0_0/0.04)] group-hover:border-primary/50 group-hover:shadow-[0_8px_20px_-6px_rgb(37_75_208/0.12)] dark:group-hover:shadow-[0_8px_20px_-6px_rgb(59_102_255/0.18)] transition-all cursor-pointer overflow-hidden"
       >
-        <div className="flex items-start justify-between mb-4">
-          <div className="p-3 bg-primary/10 rounded-xl text-primary">
-            <Icon className="w-6 h-6" />
+        {/* Subtle accent corner tick */}
+        <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-primary/20 via-transparent to-transparent" />
+        </div>
+
+        <div className="flex items-start justify-between gap-3 mb-3.5">
+          <div className="p-2.5 bg-secondary text-primary rounded-lg border border-border/50 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all duration-200">
+            <Icon className="w-5 h-5 transition-transform group-hover:scale-105" />
           </div>
-          <Badge variant={calculator.category as any}>
+          <Badge variant={calculator.category as any} className="text-[10px] tracking-wider">
             {calculator.category}
           </Badge>
         </div>
-        <h3 className="text-xl font-semibold mb-2">{calculator.name}</h3>
-        <p className="text-muted text-sm flex-grow line-clamp-2">
+
+        <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors tracking-tight mb-1.5 flex items-center justify-between">
+          <span>{calculator.name}</span>
+          <span className="text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-0.5 transition-all text-xs">→</span>
+        </h3>
+
+        <p className="text-muted-foreground text-xs leading-relaxed flex-grow line-clamp-2">
           {description}
         </p>
+
+        <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between text-[11px] text-muted-foreground">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">Instant Client-side</span>
+          <span className="font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">Launch Tool</span>
+        </div>
       </motion.div>
     </Link>
   );

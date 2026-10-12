@@ -55,39 +55,43 @@ export function NewsletterSignup({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-blue-600/10 via-violet-600/5 to-transparent p-8 md:p-12 text-center">
-      <div className="mx-auto max-w-xl">
-        <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-4">
-          <Mail className="h-6 w-6" />
+    <div className="relative overflow-hidden rounded-xl border border-border/80 bg-card p-8 md:p-12 text-center">
+      <div className="absolute inset-0 tech-grid-pattern opacity-30 pointer-events-none" />
+      <div className="relative mx-auto max-w-xl">
+        <div className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 border border-primary/20 text-primary mb-4">
+          <Mail className="h-5 w-5" />
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-          Never Miss a New Calculator or Financial Tip
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary border border-border text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-3">
+          Monthly Algorithms & Formula Updates
+        </div>
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground">
+          Precision Updates for Analysts & Students
         </h2>
-        <p className="mt-2 text-sm md:text-base text-muted">
-          Join thousands of students, accountants, and investors receiving our monthly newsletter on smart tools and math shortcuts.
+        <p className="mt-2 text-xs md:text-sm text-muted-foreground leading-relaxed">
+          Stay informed on new computational releases, financial amortization formulas, and math optimization techniques.
         </p>
 
         {submitted ? (
-          <div className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-500/10 px-4 py-3 text-sm font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-            <CheckCircle2 className="h-5 w-5" />
-            <span>Thank you for subscribing! Check your inbox soon.</span>
+          <div className="mt-6 inline-flex items-center gap-2 rounded-lg bg-emerald-500/10 px-4 py-3 text-xs font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <CheckCircle2 className="h-4 w-4" />
+            <span>Thank you for subscribing! Your computational digest is on the way.</span>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-6 flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+          <form onSubmit={handleSubmit} className="mt-6 flex flex-col sm:flex-row gap-2.5 justify-center max-w-md mx-auto">
             <Input
               type="email"
               placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="h-11 bg-background"
+              className="h-10 bg-background text-xs"
               required
             />
-            <Button type="submit" variant="gradient" className="h-11 px-6 whitespace-nowrap">
+            <Button type="submit" className="h-10 px-5 text-xs whitespace-nowrap font-semibold">
               Subscribe
             </Button>
           </form>
         )}
-        <p className="mt-3 text-xs text-muted">No spam ever. Unsubscribe anytime with 1 click.</p>
+        <p className="mt-3 text-[11px] font-mono text-muted-foreground/70">No spam. Zero tracking. 1-click unsubscribe.</p>
       </div>
     </div>
   );
