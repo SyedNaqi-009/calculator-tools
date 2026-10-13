@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { CalculatorCard } from "@/components/calculators/CalculatorCard";
+import { CategoryExplorer } from "@/components/calculators/CategoryExplorer";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { FAQSection } from "@/components/calculators/FAQSection";
 import { NewsletterSignup } from "@/components/shared/NewsletterSignup";
@@ -213,23 +214,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Complete Suite Grid */}
-        <section>
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold">Comprehensive Directory</span>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-1">Full Calculator Suite</h2>
-            </div>
-            <Button variant="outline" size="sm" asChild className="text-xs">
-              <Link href="/calculators">Filter by Category</Link>
-            </Button>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {CALCULATORS.map(calc => (
-              <CalculatorCard key={calc.slug} calculator={calc} />
-            ))}
-          </div>
-        </section>
+        {/* Bespoke Split-Panel Category Explorer (Structural Anchor) */}
+        <CategoryExplorer />
 
         {/* Blog Posts */}
         <section>
